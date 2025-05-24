@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arama Motoru</title>
+    <style>
+        /* Genel sayfa stilleri */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('wallpaper.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+
+        /* Ana içerik konteyneri */
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Logo stilleri */
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            width: 120px;
+            height: auto;
+        }
+
+        /* Arama konteyneri stilleri */
+        .search-container {
+            position: relative;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        /* GPT resmi stilleri */
+        .search-icon-right {
+            position: absolute;
+            top: 50%;
+            right: 107px; /* Arama çubuğunun sağ tarafında olacak */
+            transform: translateY(-50%);
+            width: 32px;
+            height: auto;
+            cursor: pointer;
+            z-index: 1; /* Diğer içeriğin üzerinde olacak */
+        }
+
+        /* Arama girdisi stilleri */
+        input[type="text"] {
+            padding: 10px;
+            width: calc(100% - 185px);
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            outline: none;
+            background: rgba(255, 255, 255, 0.6);
+            position: relative;
+            z-index: 0; /* GPT ikonunun üzerinde olacak */
+        }
+
+        /* Kareler */
+        .square {
+            position: relative; /* Overlay için */
+            width: 175px;
+            height: 175px;
+            margin-top: 20px;
+            margin-left: 11px;
+            margin-right: 11px;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.6);
+            display: inline-block;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        /* Son karenin sağ kenarından içeri 11 piksel bırak */
+        .square:last-child {
+            margin-right: 0;
+        }
+
+        /* Overlay stilleri */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .square:hover .overlay {
+            opacity: 1;
+        }
+
+        /* Kare içindeki resimlerin çözünürlüğünü düzenle ve %25 daha küçült */
+        .square img {
+            width: 25%; /* %25 daha küçültmek için */
+            height: 25%; /* %25 daha küçültmek için */
+            object-fit: cover;
+            display: inline-block;
+            margin-right: 3px;
+            margin-left: 7px;
+            margin-top: 9px;    /* Resimler arasında bir boşluk bırak */
+            border-radius: 30%; /* Karelerin köşelerini yumuşatmak için */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Yumuşak gölge eklemek için */
+            transition: transform 0.3s ease; /* Animasyon süresi ve geçiş kolaylığı belirleme */
+        }
+
+        .square:hover img {
+            transform: scale(1.1); /* İmleç üzerine gelindiğinde büyüme efekti */
+        }
+
+        /* Büyüteç resmi stilleri */
+        .zoomed-square .square-image {
+            width: 185px; /* Yeni boyut */
+            height: 185px; /* Yeni boyut */
+            object-fit: cover;
+            display: block;
+            margin: auto; /* Kare içinde ortalamak için */
+            margin-top: -10px; /* Üstten 10 piksel boşluk */
+            border-radius: 0; /* Köşelerdeki yumuşatmayı kaldır */
+        }
+
+        /* Periyot resmi stilleri */
+        .another-square .square-image {
+            width: 185px; /* Yeni boyut */
+            height: 185px; /* Yeni boyut */
+            object-fit: cover;
+            display: block;
+            margin: auto; /* Kare içinde ortalamak için */
+            margin-top: -0px; /* Üstten 10 piksel boşluk */
+            margin-left: -4px;
+            border-radius: 0; /* Köşelerdeki yumuşatmayı kaldır */
+        }
+
+        .another-square:hover img {
+            transform: scale(1.1); /* İmleç üzerine gelindiğinde büyüme efekti */
+        }
+
+        /* Kapatma düğmesi */
+        .close-button {
+            position: absolute;
+            top: 17px;
+            left: 22px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            z-index: 99999;
+            background-image: url('close.png');
+            background-size: cover;
+            border-radius: 50%;
+        }
+
+        /* ELO resmi */
+        .elo-image {
+            position: absolute;
+            top: 10px;
+            left: 343px;
+            width: 80px;
+            height: 65px;
+            background-image: url('elo.png');
+            background-size: cover;
+            border-radius: 50%;
+        }
+
+        /* Store karesi */
+        .store-square {
+            position: relative;
+            width: 175px;
+            height: 175px;
+            margin-top: 20px;
+            margin-left: 11px;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.6);
+            display: inline-block;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .store-square img {
+            width: 130px; /* Yeni boyut */
+            height: 130px; /* Yeni boyut */
+            object-fit: cover;
+            display: block;
+            margin: auto; /* Kare içinde ortalamak için */
+            margin-top: 21px; /* Üstten 10 piksel boşluk */
+            margin-left: 23px; /* Soldan 10 piksel boşluk */
+            border-radius: 0; /* Köşelerdeki yumuşatmayı kaldır */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="logo.png" alt="Logo" class="logo">
+    <div class="search-container">
+        <img src="gpt.png" alt="GPT" class="search-icon-right" onclick="window.location.href='https://chat.openai.com/'">
+        <input type="text" id="searchInput" placeholder="Element Explorer üzerinde ara...">
+    </div>
+    <div class="square">
+        <img src="whatsapp.png" alt="WhatsApp" class="square-image" onclick="window.location.href='https://web.whatsapp.com/'">
+        <img src="365.png" alt="365" class="square-image" onclick="window.location.href='https://www.office.com/'">
+        <img src="youtube.png" alt="YouTube" class="square-image" onclick="window.location.href='https://www.youtube.com/?app=desktop&hl=tr'">
+        <img src="wiki.png" alt="Wiki" class="square-image" onclick="window.location.href='https://tr.wikipedia.org/wiki/Anasayfa'">
+        <img src="python.png" alt="Python" class="square-image" onclick="window.location.href='https://www.programiz.com/python-programming/online-compiler/'">
+        <img src="github.png" alt="GitHub" class="square-image" onclick="window.location.href='https://github.com/'">
+        <img src="copilot.png" alt="Copilot" class="square-image" onclick="window.location.href='https://copilot.microsoft.com/'">
+        <img src="eba.png" alt="EBA" class="square-image" onclick="window.location.href='https://www.eba.gov.tr/'">
+        <img src="eokul.png" alt="E-Okul" class="square-image" onclick="window.location.href='https://e-okul.meb.gov.tr/'">
+    </div>
+    <div class="square zoomed-square">
+        <img src="buyutec.png" alt="Buyutec" class="square-image" id="buyutecIcon">
+        <p class="element-bulucu-text">Element Bulucu</p>
+    </div>
+    <div class="square another-square">
+        <img src="periyot.png" alt="Periyot" class="square-image" id="periyotIcon">
+    </div>
+    <a href="store.html" class="store-square">
+        <img src="store.png" alt="Store">
+    </a>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var searchInput = document.getElementById("searchInput");
+
+    searchInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            var searchTerm = encodeURIComponent(searchInput.value.trim());
+            window.location.href = "https://www.google.com/search?q=" + searchTerm;
+        }
+    });
+
+    var periyotIcon = document.getElementById("periyotIcon");
+
+    periyotIcon.addEventListener("click", function() {
+        openModal("https://artsexperiments.withgoogle.com/periodic-table/");
+    });
+
+    var buyutecIcon = document.getElementById("buyutecIcon");
+
+    buyutecIcon.addEventListener("click", function() {
+        openModal("efinder.html");
+    });
+
+    function openModal(url) {
+        var modal = document.createElement("div");
+        modal.style.position = "fixed";
+        modal.style.top = "50%";
+        modal.style.left = "50%";
+        modal.style.transform = "translate(-50%, -50%)";
+        modal.style.width = "767px";
+        modal.style.height = "600px";
+        modal.style.backgroundColor = "rgba(255, 255, 255, 1)";
+        modal.style.zIndex = "9999";
+        modal.style.borderRadius = "10px";
+        modal.style.boxShadow = "0 0 20px rgba(0, 0, 0, 0.2)";
+        modal.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                document.body.removeChild(modal);
+            }
+        });
+
+        var closeButton = document.createElement("div");
+        closeButton.className = "close-button";
+        closeButton.addEventListener("click", function() {
+            document.body.removeChild(modal);
+        });
+        modal.appendChild(closeButton);
+
+        var eloImage = document.createElement("div");
+        eloImage.className = "elo-image";
+        modal.appendChild(eloImage);
+
+        var iframe = document.createElement("iframe");
+        iframe.src = url;
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        iframe.style.border = "none";
+
+        modal.appendChild(iframe);
+        document.body.appendChild(modal);
+    }
+});
+</script>
+
+</body>
+</html>
