@@ -1,264 +1,241 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Arama Motoru</title>
-    <style>
-        /* Genel sayfa stilleri */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url('wallpaper.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            min-height: 100vh;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arama Motoru</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        /* Ana içerik konteyneri */
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('wallpaper.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+    }
 
-        /* Logo stilleri */
-        .logo {
-            display: block;
-            margin: 0 auto 20px;
-            width: 120px;
-            height: auto;
-        }
+    .container {
+      width: 90%;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
 
-        /* Arama konteyneri stilleri */
-        .search-container {
-            position: relative;
-            text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
+    .logo {
+      display: block;
+      margin: 0 auto 20px;
+      width: 119px;
+      height: auto;
+    }
 
-        /* GPT resmi stilleri */
-        .search-icon-right {
-            position: absolute;
-            top: 50%;
-            right: 107px; /* Arama çubuğunun sağ tarafında olacak */
-            transform: translateY(-50%);
-            width: 32px;
-            height: auto;
-            cursor: pointer;
-            z-index: 1; /* Diğer içeriğin üzerinde olacak */
-        }
+    .search-container {
+      position: relative;
+      text-align: center;
+      margin-top: 20px;
+    }
 
-        /* Arama girdisi stilleri */
-        input[type="text"] {
-            padding: 10px;
-            width: calc(100% - 185px);
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            outline: none;
-            background: rgba(255, 255, 255, 0.6);
-            position: relative;
-            z-index: 0; /* GPT ikonunun üzerinde olacak */
-        }
+    .search-icon-right {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      width: 32px;
+      height: auto;
+      cursor: pointer;
+      z-index: 1;
+    }
 
-        /* Kareler */
-        .square {
-            position: relative; /* Overlay için */
-            width: 175px;
-            height: 175px;
-            margin-top: 20px;
-            margin-left: 11px;
-            margin-right: 11px;
-            border-radius: 15px;
-            background-color: rgba(255, 255, 255, 0.6);
-            display: inline-block;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
+    input[type="text"] {
+      padding: 10px 15px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      outline: none;
+      background: rgba(255, 255, 255, 0.6);
+      font-size: 16px;
+    }
 
-        /* Son karenin sağ kenarından içeri 11 piksel bırak */
-        .square:last-child {
-            margin-right: 0;
-        }
+    .squares-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
 
-        /* Overlay stilleri */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+    .square,
+    .store-square {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 15px;
+      background-color: rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 10px;
+      box-sizing: border-box;
+      text-decoration: none;
+      color: inherit;
+    }
 
-        .square:hover .overlay {
-            opacity: 1;
-        }
+    .square img {
+      width: 47px;
+      height: 47px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+      margin: auto;
+    }
 
-        /* Kare içindeki resimlerin çözünürlüğünü düzenle ve %25 daha küçült */
-        .square img {
-            width: 25%; /* %25 daha küçültmek için */
-            height: 25%; /* %25 daha küçültmek için */
-            object-fit: cover;
-            display: inline-block;
-            margin-right: 3px;
-            margin-left: 7px;
-            margin-top: 9px;    /* Resimler arasında bir boşluk bırak */
-            border-radius: 30%; /* Karelerin köşelerini yumuşatmak için */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Yumuşak gölge eklemek için */
-            transition: transform 0.3s ease; /* Animasyon süresi ve geçiş kolaylığı belirleme */
-        }
+    .square:hover img,
+    .store-square:hover img,
+    .buyutec-square:hover img {
+      transform: scale(1.1);
+    }
 
-        .square:hover img {
-            transform: scale(1.1); /* İmleç üzerine gelindiğinde büyüme efekti */
-        }
+    .store-square img {
+      width: 80%;
+      height: 80%;
+      object-fit: cover;
+      display: block;
+      margin: auto;
+      border-radius: 0;
+      transition: transform 0.3s ease;
+    }
 
-        /* Büyüteç resmi stilleri */
-        .zoomed-square .square-image {
-            width: 185px; /* Yeni boyut */
-            height: 185px; /* Yeni boyut */
-            object-fit: cover;
-            display: block;
-            margin: auto; /* Kare içinde ortalamak için */
-            margin-top: -10px; /* Üstten 10 piksel boşluk */
-            border-radius: 0; /* Köşelerdeki yumuşatmayı kaldır */
-        }
+    .buyutec-square {
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+    }
 
-        /* Periyot resmi stilleri */
-        .another-square .square-image {
-            width: 185px; /* Yeni boyut */
-            height: 185px; /* Yeni boyut */
-            object-fit: cover;
-            display: block;
-            margin: auto; /* Kare içinde ortalamak için */
-            margin-top: -0px; /* Üstten 10 piksel boşluk */
-            margin-left: -4px;
-            border-radius: 0; /* Köşelerdeki yumuşatmayı kaldır */
-            transition: transform 0.3s ease;
-        }
+    .buyutec-square img {
+      width: 80%;
+      height: 80%;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+      margin: auto;
+      transition: transform 0.3s ease;
+      box-shadow: none;
+    }
 
-        .another-square:hover img {
-            transform: scale(1.1); /* İmleç üzerine gelindiğinde büyüme efekti */
-        }
+    .periyot-square {
+      cursor: default;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.4;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 10px;
+      text-align: center;
+    }
 
-        /* Kapatma düğmesi */
-        .close-button {
-            position: absolute;
-            top: 17px;
-            left: 22px;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            z-index: 99999;
-            background-image: url('close.png');
-            background-size: cover;
-            border-radius: 50%;
-        }
+    .info-link {
+      margin-top: 10px;
+      color: #007bff;
+      text-decoration: underline;
+      cursor: pointer;
+      font-weight: bold;
+      user-select: none;
+    }
 
-        /* ELO resmi */
-        .elo-image {
-            position: absolute;
-            top: 10px;
-            left: 343px;
-            width: 80px;
-            height: 65px;
-            background-image: url('elo.png');
-            background-size: cover;
-            border-radius: 50%;
-        }
+    .info-link:hover {
+      color: #0056b3;
+    }
 
-        /* Store karesi */
-        .store-square {
-            position: relative;
-            width: 175px;
-            height: 175px;
-            margin-top: 20px;
-            margin-left: 11px;
-            border-radius: 15px;
-            background-color: rgba(255, 255, 255, 0.6);
-            display: inline-block;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            cursor: pointer;
-        }
+    @media (max-width: 480px) {
+      .logo {
+        width: 90px;
+      }
 
-        .store-square img {
-            width: 185px; /* Periyot ile aynı */
-            height: 185px; /* Periyot ile aynı */
-            object-fit: cover;
-            display: block;
-            margin: auto; /* Kare içinde ortalamak için */
-            margin-top: -0px; /* Periyot ile aynı */
-            margin-left: -4px; /* Periyot ile aynı */
-            border-radius: 0; /* Köşelerdeki yumuşatmayı kaldır */
-            transition: transform 0.3s ease;
-        }
+      .search-icon-right {
+        width: 24px;
+      }
 
-        .store-square:hover img {
-            transform: scale(1.1);
-        }
-    </style>
+      .square img {
+        width: 38px;
+        height: 38px;
+      }
+
+      .store-square img,
+      .buyutec-square img {
+        width: 70%;
+        height: 70%;
+      }
+
+      .periyot-square {
+        font-size: 13px;
+        padding: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<div class="container">
+  <div class="container">
     <img src="logo.png" alt="Logo" class="logo" />
     <div class="search-container">
-        <img src="gpt.png" alt="GPT" class="search-icon-right" onclick="window.location.href='https://chat.openai.com/'" />
-        <input type="text" id="searchInput" placeholder="Element Explorer üzerinde ara..." />
+      <img src="gpt.png" alt="GPT" class="search-icon-right" onclick="window.location.href='https://chat.openai.com/'" />
+      <input type="text" id="searchInput" placeholder="Element Explorer üzerinde ara..." />
     </div>
-    <div class="square">
-        <img src="whatsapp.png" alt="WhatsApp" class="square-image" onclick="window.location.href='https://web.whatsapp.com/'" />
-        <img src="365.png" alt="365" class="square-image" onclick="window.location.href='https://www.office.com/'" />
-        <img src="youtube.png" alt="YouTube" class="square-image" onclick="window.location.href='https://www.youtube.com/?app=desktop&hl=tr'" />
-        <img src="wiki.png" alt="Wiki" class="square-image" onclick="window.location.href='https://tr.wikipedia.org/wiki/Anasayfa'" />
-        <img src="python.png" alt="Python" class="square-image" onclick="window.location.href='https://www.programiz.com/python-programming/online-compiler/'" />
-        <img src="github.png" alt="GitHub" class="square-image" onclick="window.location.href='https://github.com/'" />
-        <img src="copilot.png" alt="Copilot" class="square-image" onclick="window.location.href='https://copilot.microsoft.com/'" />
-        <img src="eba.png" alt="EBA" class="square-image" onclick="window.location.href='https://www.eba.gov.tr/'" />
-        <img src="eokul.png" alt="E-Okul" class="square-image" onclick="window.location.href='https://e-okul.meb.gov.tr/'" />
-    </div>
-    <div class="square zoomed-square">
-        <img src="buyutec.png" alt="Buyutec" class="square-image" id="buyutecIcon" />
-        <p class="element-bulucu-text">Element Bulucu</p>
-    </div>
-    <div class="square another-square">
-        <img src="periyot.png" alt="Periyot" class="square-image" id="periyotIcon" />
-    </div>
-    <a href="store.html" class="store-square">
+
+    <div class="squares-wrapper">
+      <div class="square">
+        <img src="whatsapp.png" alt="WhatsApp" onclick="window.location.href='https://web.whatsapp.com/'" />
+        <img src="365.png" alt="365" onclick="window.location.href='https://www.office.com/'" />
+        <img src="youtube.png" alt="YouTube" onclick="window.location.href='https://www.youtube.com/?app=desktop&hl=tr'" />
+        <img src="wiki.png" alt="Wiki" onclick="window.location.href='https://tr.wikipedia.org/wiki/Anasayfa'" />
+        <img src="python.png" alt="Python" onclick="window.location.href='https://www.programiz.com/python-programming/online-compiler/'" />
+        <img src="github.png" alt="GitHub" onclick="window.location.href='https://github.com/'" />
+        <img src="copilot.png" alt="Copilot" onclick="window.location.href='https://copilot.microsoft.com/'" />
+        <img src="eba.png" alt="EBA" onclick="window.location.href='https://www.eba.gov.tr/'" />
+        <img src="eokul.png" alt="E-Okul" onclick="window.location.href='https://e-okul.meb.gov.tr/'" />
+      </div>
+
+      <a href="ehesapmakinesi.html" class="square buyutec-square">
+        <img src="hesapmakinesi.png" alt="Hesap Makinesi" />
+      </a>
+
+      <a href="store.html" class="store-square">
         <img src="store.png" alt="Store" />
-    </a>
-</div>
+      </a>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    var searchInput = document.getElementById("searchInput");
+      <div class="square periyot-square">
+        Bu proje hakkında daha fazla bilgi almak istiyorsanız,<br />
+        <span class="info-link" onclick="window.location.href='proje.html'">Beni oraya götür</span> kısmına basmanız yeterli.
+      </div>
+    </div>
+  </div>
 
-    searchInput.addEventListener("keypress", function(event) {
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var searchInput = document.getElementById("searchInput");
+
+      searchInput.addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
-            var query = searchInput.value.trim();
-            if (query.length > 0) {
-                var url = "https://www.google.com/search?q=" + encodeURIComponent(query);
-                window.open(url, "_blank");
-            }
+          var searchTerm = encodeURIComponent(searchInput.value.trim());
+          window.location.href = "https://www.google.com/search?q=" + searchTerm;
         }
+      });
     });
-});
-</script>
-
+  </script>
 </body>
 </html>
