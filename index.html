@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Arama Motoru</title>
     <style>
         /* Genel sayfa stilleri */
@@ -148,6 +148,7 @@
             margin-top: -0px; /* Üstten 10 piksel boşluk */
             margin-left: -4px;
             border-radius: 0; /* Köşelerdeki yumuşatmayı kaldır */
+            transition: transform 0.3s ease;
         }
 
         .another-square:hover img {
@@ -196,45 +197,50 @@
         }
 
         .store-square img {
-            width: 130px; /* Yeni boyut */
-            height: 130px; /* Yeni boyut */
+            width: 185px; /* Periyot ile aynı */
+            height: 185px; /* Periyot ile aynı */
             object-fit: cover;
             display: block;
             margin: auto; /* Kare içinde ortalamak için */
-            margin-top: 21px; /* Üstten 10 piksel boşluk */
-            margin-left: 23px; /* Soldan 10 piksel boşluk */
+            margin-top: -0px; /* Periyot ile aynı */
+            margin-left: -4px; /* Periyot ile aynı */
             border-radius: 0; /* Köşelerdeki yumuşatmayı kaldır */
+            transition: transform 0.3s ease;
+        }
+
+        .store-square:hover img {
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <img src="logo.png" alt="Logo" class="logo">
+    <img src="logo.png" alt="Logo" class="logo" />
     <div class="search-container">
-        <img src="gpt.png" alt="GPT" class="search-icon-right" onclick="window.location.href='https://chat.openai.com/'">
-        <input type="text" id="searchInput" placeholder="Element Explorer üzerinde ara...">
+        <img src="gpt.png" alt="GPT" class="search-icon-right" onclick="window.location.href='https://chat.openai.com/'" />
+        <input type="text" id="searchInput" placeholder="Element Explorer üzerinde ara..." />
     </div>
     <div class="square">
-        <img src="whatsapp.png" alt="WhatsApp" class="square-image" onclick="window.location.href='https://web.whatsapp.com/'">
-        <img src="365.png" alt="365" class="square-image" onclick="window.location.href='https://www.office.com/'">
-        <img src="youtube.png" alt="YouTube" class="square-image" onclick="window.location.href='https://www.youtube.com/?app=desktop&hl=tr'">
-        <img src="wiki.png" alt="Wiki" class="square-image" onclick="window.location.href='https://tr.wikipedia.org/wiki/Anasayfa'">
-        <img src="python.png" alt="Python" class="square-image" onclick="window.location.href='https://www.programiz.com/python-programming/online-compiler/'">
-        <img src="github.png" alt="GitHub" class="square-image" onclick="window.location.href='https://github.com/'">
-        <img src="copilot.png" alt="Copilot" class="square-image" onclick="window.location.href='https://copilot.microsoft.com/'">
-        <img src="eba.png" alt="EBA" class="square-image" onclick="window.location.href='https://www.eba.gov.tr/'">
-        <img src="eokul.png" alt="E-Okul" class="square-image" onclick="window.location.href='https://e-okul.meb.gov.tr/'">
+        <img src="whatsapp.png" alt="WhatsApp" class="square-image" onclick="window.location.href='https://web.whatsapp.com/'" />
+        <img src="365.png" alt="365" class="square-image" onclick="window.location.href='https://www.office.com/'" />
+        <img src="youtube.png" alt="YouTube" class="square-image" onclick="window.location.href='https://www.youtube.com/?app=desktop&hl=tr'" />
+        <img src="wiki.png" alt="Wiki" class="square-image" onclick="window.location.href='https://tr.wikipedia.org/wiki/Anasayfa'" />
+        <img src="python.png" alt="Python" class="square-image" onclick="window.location.href='https://www.programiz.com/python-programming/online-compiler/'" />
+        <img src="github.png" alt="GitHub" class="square-image" onclick="window.location.href='https://github.com/'" />
+        <img src="copilot.png" alt="Copilot" class="square-image" onclick="window.location.href='https://copilot.microsoft.com/'" />
+        <img src="eba.png" alt="EBA" class="square-image" onclick="window.location.href='https://www.eba.gov.tr/'" />
+        <img src="eokul.png" alt="E-Okul" class="square-image" onclick="window.location.href='https://e-okul.meb.gov.tr/'" />
     </div>
     <div class="square zoomed-square">
-        <img src="buyutec.png" alt="Buyutec" class="square-image" id="buyutecIcon">
+        <img src="buyutec.png" alt="Buyutec" class="square-image" id="buyutecIcon" />
         <p class="element-bulucu-text">Element Bulucu</p>
     </div>
     <div class="square another-square">
-        <img src="periyot.png" alt="Periyot" class="square-image" id="periyotIcon">
+        <img src="periyot.png" alt="Periyot" class="square-image" id="periyotIcon" />
     </div>
     <a href="store.html" class="store-square">
-        <img src="store.png" alt="Store">
+        <img src="store.png" alt="Store" />
     </a>
 </div>
 
@@ -244,61 +250,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     searchInput.addEventListener("keypress", function(event) {
         if (event.key === "Enter") {
-            var searchTerm = encodeURIComponent(searchInput.value.trim());
-            window.location.href = "https://www.google.com/search?q=" + searchTerm;
+            var query = searchInput.value.trim();
+            if (query.length > 0) {
+                var url = "https://www.google.com/search?q=" + encodeURIComponent(query);
+                window.open(url, "_blank");
+            }
         }
     });
-
-    var periyotIcon = document.getElementById("periyotIcon");
-
-    periyotIcon.addEventListener("click", function() {
-        openModal("https://artsexperiments.withgoogle.com/periodic-table/");
-    });
-
-    var buyutecIcon = document.getElementById("buyutecIcon");
-
-    buyutecIcon.addEventListener("click", function() {
-        openModal("efinder.html");
-    });
-
-    function openModal(url) {
-        var modal = document.createElement("div");
-        modal.style.position = "fixed";
-        modal.style.top = "50%";
-        modal.style.left = "50%";
-        modal.style.transform = "translate(-50%, -50%)";
-        modal.style.width = "767px";
-        modal.style.height = "600px";
-        modal.style.backgroundColor = "rgba(255, 255, 255, 1)";
-        modal.style.zIndex = "9999";
-        modal.style.borderRadius = "10px";
-        modal.style.boxShadow = "0 0 20px rgba(0, 0, 0, 0.2)";
-        modal.addEventListener("click", function(event) {
-            if (event.target === modal) {
-                document.body.removeChild(modal);
-            }
-        });
-
-        var closeButton = document.createElement("div");
-        closeButton.className = "close-button";
-        closeButton.addEventListener("click", function() {
-            document.body.removeChild(modal);
-        });
-        modal.appendChild(closeButton);
-
-        var eloImage = document.createElement("div");
-        eloImage.className = "elo-image";
-        modal.appendChild(eloImage);
-
-        var iframe = document.createElement("iframe");
-        iframe.src = url;
-        iframe.style.width = "100%";
-        iframe.style.height = "100%";
-        iframe.style.border = "none";
-
-        modal.appendChild(iframe);
-        document.body.appendChild(modal);
-    }
 });
 </script>
 
