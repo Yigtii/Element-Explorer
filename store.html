@@ -17,6 +17,7 @@
       background: #1e1e2f;
       color: white;
       padding: 10px 20px;
+      justify-content: space-between;
     }
     header img {
       height: 40px;
@@ -25,6 +26,19 @@
     header h1 {
       font-size: 1.2rem;
       margin: 0;
+      flex-grow: 1;
+    }
+    .home-btn {
+      background: #ffffff33;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .home-btn:hover {
+      background: #ffffff55;
     }
     .grid {
       display: grid;
@@ -61,9 +75,37 @@
       border-radius: 5px;
       cursor: pointer;
       font-size: 0.85rem;
+      text-decoration: none;
+      display: inline-block;
     }
     .install-btn:hover {
       background: #005fa3;
+    }
+    .note {
+      font-size: 0.75rem;
+      color: #666;
+      margin-top: 10px;
+    }
+    .review-btn {
+      margin-top: 5px;
+      font-size: 0.75rem;
+      color: #0078d7;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .review-btn:hover {
+      color: #005fa3;
+    }
+    .coming-soon {
+      margin-top: 10px;
+      padding: 6px 12px;
+      background: #cccccc;
+      color: #444;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      display: inline-block;
     }
   </style>
 </head>
@@ -71,20 +113,25 @@
   <header>
     <img src="store.png" alt="Store Logo">
     <h1>Element Store</h1>
+    <a href="index.html" class="home-btn">Ana Sayfaya Dön</a>
   </header>
 
   <div class="grid">
     <div class="app-card">
-      <img class="app-icon" src="app1.png" alt="App Icon">
+      <img class="app-icon" src="notepad.png" alt="App Icon">
       <div class="app-name">Notepad++</div>
-      <button class="install-btn">Install</button>
+      <a class="install-btn" href="https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.8/npp.8.8.Installer.x64.exe">Yükle</a>
     </div>
     <div class="app-card">
-      <img class="app-icon" src="app2.png" alt="App Icon">
-      <div class="app-name">Weather</div>
-      <button class="install-btn">Install</button>
+      <img class="app-icon" src="atahta.png" alt="App Icon">
+      <div class="app-name">Akıllı Tahta Kilitleme Programı</div>
+      <div class="coming-soon">Çok yakında</div>
+      <div class="note">
+        Bu program daha geliştirme aşamasındadır, yakında hizmete sunulacaktır.<br>
+        Daha fazla bilgi için İncele kısmına basmanız yeterlidir.
+      </div>
+      <a href="atahta.html" class="review-btn">İncele</a>
     </div>
-    <!-- Daha fazla uygulama kartı eklenebilir -->
   </div>
 </body>
 </html>
