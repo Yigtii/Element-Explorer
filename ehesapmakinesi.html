@@ -2,97 +2,165 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Modern Hesap Makinesi</title>
   <style>
     :root {
-      --bg-color: #ffffff;
-      --btn-color: #b2ebf2;
-      --accent: #0288d1;
-      --text-light: #000000;
-      --calc-bg: #bbdefb;
-      --display-bg: #90caf9;
+      --bg-color: #e3f2fd;
+      --btn-color: #90caf9;
+      --accent: #1976d2;
+      --text-color: #000000;
+      --calc-bg: rgba(255 255 255 / 0.85);
+      --display-bg: #bbdefb;
+      --button-shadow: rgba(0,0,0,0.1);
+      --operator-bg: #f57c00;
+      --operator-text: #fff;
+      --equal-bg: #1565c0;
+      --equal-text: #fff;
+      --button-hover-filter: brightness(0.85);
     }
 
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg-color: #1f1f2e;
-        --btn-color: #2d2d44;
+        --bg-color: #121212;
+        --btn-color: #333a56;
         --accent: #4fc3f7;
-        --text-light: #f0f0f0;
-        --calc-bg: #29293d;
-        --display-bg: #1b1b2a;
+        --text-color: #e0e0e0;
+        --calc-bg: rgba(30 30 40 / 0.95);
+        --display-bg: #1e1e2a;
+        --button-shadow: rgba(0,0,0,0.5);
+        --operator-bg: #ff9800;
+        --operator-text: #000;
+        --equal-bg: #29b6f6;
+        --equal-text: #000;
+        --button-hover-filter: brightness(1.1);
       }
     }
 
-    * {
-      box-sizing: border-box;
-    }
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--bg-color);
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      color: var(--text-light);
+      background-color: var(--bg-color);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      color: var(--text-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      transition: background-image 0.5s ease-in-out, background-color 0.5s ease-in-out;
     }
+
+    @media (prefers-color-scheme: light) {
+      body {
+        background-image: url('wallpaper.jpg');
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-image: url('dark.jpg');
+      }
+    }
+
     .calculator {
       background: var(--calc-bg);
-      padding: 24px;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      padding: 24px;
       width: 340px;
-      transition: all 0.3s ease-in-out;
+      box-shadow: 0 10px 30px var(--button-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
+
     .logo {
       text-align: center;
-      margin-bottom: 12px;
     }
+
     .logo img {
       width: 80px;
       height: auto;
     }
+
     .display {
+      background: var(--display-bg);
+      border-radius: 14px;
+      padding: 15px 20px;
       font-size: 28px;
       text-align: right;
-      padding: 14px;
-      background: var(--display-bg);
-      border-radius: 12px;
-      margin-bottom: 16px;
       min-height: 50px;
       word-wrap: break-word;
+      box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+      user-select: none;
     }
+
     .buttons {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 12px;
     }
+
     button {
-      padding: 22px;
+      padding: 20px;
       font-size: 20px;
       border: none;
-      border-radius: 12px;
+      border-radius: 14px;
       background: var(--btn-color);
-      color: var(--text-light);
+      color: var(--text-color);
       cursor: pointer;
-      transition: all 0.2s ease;
+      box-shadow: 0 4px 8px var(--button-shadow);
+      transition: filter 0.2s ease, transform 0.1s ease;
+      user-select: none;
     }
     button:hover {
-      filter: brightness(90%);
-    }
-    button.operator {
-      background: #ff9800;
-      color: #fff;
-    }
-    button.equal {
-      background: var(--accent);
-      color: #000;
-      grid-column: span 2;
+      filter: var(--button-hover-filter);
     }
     button:active {
       transform: scale(0.95);
+    }
+
+    button.operator {
+      background: var(--operator-bg);
+      color: var(--operator-text);
+      box-shadow: 0 6px 12px rgba(255 152 0, 0.6);
+    }
+
+    button.equal {
+      background: var(--equal-bg);
+      color: var(--equal-text);
+      grid-column: span 2;
+      font-weight: 700;
+      box-shadow: 0 6px 15px rgba(21,101,192,0.8);
+    }
+
+    .home-btn {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-color);
+      background: var(--btn-color);
+      border-radius: 14px;
+      box-shadow: 0 3px 6px var(--button-shadow);
+      cursor: pointer;
+      user-select: none;
+      transition: filter 0.2s ease;
+      width: 140px;
+      align-self: center;
+      text-decoration: none;
+    }
+    .home-btn:hover {
+      filter: var(--button-hover-filter);
+    }
+    .home-btn img {
+      width: 20px;
+      height: 20px;
     }
   </style>
 </head>
@@ -101,7 +169,9 @@
     <div class="logo">
       <img src="logo.png" alt="Logo" />
     </div>
+
     <div id="display" class="display">0</div>
+
     <div class="buttons">
       <button onclick="clearDisplay()">C</button>
       <button onclick="backspace()">⌫</button>
@@ -127,13 +197,18 @@
       <button onclick="append('.')">.</button>
       <button class="equal" onclick="calculate()">=</button>
     </div>
+
+    <a href="index.html" class="home-btn" title="Ana Sayfaya Dön">
+      <img src="logo.png" alt="Logo" />
+      Ana Sayfaya Dön
+    </a>
   </div>
 
   <script>
-    let display = document.getElementById("display");
+    const display = document.getElementById('display');
 
     function append(value) {
-      if (display.textContent === "0" || display.textContent === "HATA") {
+      if (display.textContent === '0' || display.textContent === 'HATA') {
         display.textContent = value;
       } else {
         display.textContent += value;
@@ -141,19 +216,27 @@
     }
 
     function clearDisplay() {
-      display.textContent = "0";
+      display.textContent = '0';
     }
 
     function backspace() {
-      display.textContent = display.textContent.slice(0, -1) || "0";
+      if (display.textContent.length === 1 || display.textContent === 'HATA') {
+        display.textContent = '0';
+      } else {
+        display.textContent = display.textContent.slice(0, -1);
+      }
     }
 
     function calculate() {
       try {
+        if (!/^[0-9+\-*/%.() ]+$/.test(display.textContent)) {
+          throw new Error('Invalid characters');
+        }
         let result = Function(`return (${display.textContent})`)();
-        display.textContent = result;
+        if (result === Infinity || result === -Infinity || isNaN(result)) throw new Error('Invalid result');
+        display.textContent = result.toString();
       } catch {
-        display.textContent = "HATA";
+        display.textContent = 'HATA';
       }
     }
   </script>
