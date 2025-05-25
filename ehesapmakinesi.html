@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Hesap Makinesi</title>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --btn-color: #b2ebf2;
+      --accent: #0288d1;
+      --text-light: #000000;
+      --calc-bg: #bbdefb;
+      --display-bg: #90caf9;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #1f1f2e;
+        --btn-color: #2d2d44;
+        --accent: #4fc3f7;
+        --text-light: #f0f0f0;
+        --calc-bg: #29293d;
+        --display-bg: #1b1b2a;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: var(--text-light);
+    }
+    .calculator {
+      background: var(--calc-bg);
+      padding: 24px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      width: 340px;
+      transition: all 0.3s ease-in-out;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .logo img {
+      width: 80px;
+      height: auto;
+    }
+    .display {
+      font-size: 28px;
+      text-align: right;
+      padding: 14px;
+      background: var(--display-bg);
+      border-radius: 12px;
+      margin-bottom: 16px;
+      min-height: 50px;
+      word-wrap: break-word;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    button {
+      padding: 22px;
+      font-size: 20px;
+      border: none;
+      border-radius: 12px;
+      background: var(--btn-color);
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    button:hover {
+      filter: brightness(90%);
+    }
+    button.operator {
+      background: #ff9800;
+      color: #fff;
+    }
+    button.equal {
+      background: var(--accent);
+      color: #000;
+      grid-column: span 2;
+    }
+    button:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="logo">
+      <img src="logo.png" alt="Logo" />
+    </div>
+    <div id="display" class="display">0</div>
+    <div class="buttons">
+      <button onclick="clearDisplay()">C</button>
+      <button onclick="backspace()">⌫</button>
+      <button onclick="append('%')">%</button>
+      <button class="operator" onclick="append('/')">÷</button>
+
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button class="operator" onclick="append('*')">×</button>
+
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button class="operator" onclick="append('-')">−</button>
+
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button class="operator" onclick="append('+')">+</button>
+
+      <button onclick="append('0')">0</button>
+      <button onclick="append('.')">.</button>
+      <button class="equal" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    let display = document.getElementById("display");
+
+    function append(value) {
+      if (display.textContent === "0" || display.textContent === "HATA") {
+        display.textContent = value;
+      } else {
+        display.textContent += value;
+      }
+    }
+
+    function clearDisplay() {
+      display.textContent = "0";
+    }
+
+    function backspace() {
+      display.textContent = display.textContent.slice(0, -1) || "0";
+    }
+
+    function calculate() {
+      try {
+        let result = Function(`return (${display.textContent})`)();
+        display.textContent = result;
+      } catch {
+        display.textContent = "HATA";
+      }
+    }
+  </script>
+</body>
+</html>
