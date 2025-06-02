@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Element Store</title>
   <style>
     body {
@@ -36,6 +36,7 @@
       padding: 6px 12px;
       cursor: pointer;
       font-size: 0.85rem;
+      text-decoration: none;
     }
     .home-btn:hover {
       background: #ffffff55;
@@ -94,6 +95,7 @@
       border: none;
       cursor: pointer;
       text-decoration: underline;
+      display: inline-block;
     }
     .review-btn:hover {
       color: #005fa3;
@@ -111,26 +113,39 @@
 </head>
 <body>
   <header>
-    <img src="store.png" alt="Store Logo">
+    <img src="store.png" alt="Store Logo" />
     <h1>Element Store</h1>
     <a href="index.html" class="home-btn">Ana Sayfaya Dön</a>
   </header>
 
   <div class="grid">
     <div class="app-card">
-      <img class="app-icon" src="notepad.png" alt="App Icon">
+      <img class="app-icon" src="notepad.png" alt="Notepad++ Icon" />
       <div class="app-name">Notepad++</div>
-      <a class="install-btn" href="https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.8/npp.8.8.Installer.x64.exe">Yükle</a>
+      <a class="install-btn" href="https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.8/npp.8.8.Installer.x64.exe" target="_blank" rel="noopener noreferrer">Yükle</a>
     </div>
+
     <div class="app-card">
-      <img class="app-icon" src="atahta.png" alt="App Icon">
+      <img class="app-icon" src="atahta.png" alt="Akıllı Tahta Kilitleme Programı Icon" />
       <div class="app-name">Akıllı Tahta Kilitleme Programı</div>
       <div class="coming-soon">Çok yakında</div>
       <div class="note">
-        Bu program daha geliştirme aşamasındadır, yakında hizmete sunulacaktır.<br>
+        Bu program daha geliştirme aşamasındadır, yakında hizmete sunulacaktır.<br />
         Daha fazla bilgi için İncele kısmına basmanız yeterlidir.
       </div>
       <a href="atahta.html" class="review-btn">İncele</a>
+    </div>
+
+    <div class="app-card">
+      <img class="app-icon" src="vertus.png" alt="Vertus Logo" />
+      <div class="app-name">Vertus</div>
+      <div class="coming-soon">Çok yakında</div>
+      <div class="note">
+        Vertus, debian tabanlı özgün bir işletim sistemidir.<br />
+        Element Explorer ile aynı geliştiriciler görev almaktadır.<br />
+        Daha fazla bilgi için incele kısmına basmanız yeterlidir.
+      </div>
+      <a href="vertus.html" class="review-btn">İncele</a>
     </div>
   </div>
 </body>
