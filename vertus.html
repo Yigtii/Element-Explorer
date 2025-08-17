@@ -86,6 +86,15 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.25);
         }
         
+        .boot-image {
+            max-width: 80%;
+            border: 1px solid #333;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin: 25px auto;
+            display: block;
+        }
+        
         .project-info {
             background-color: white;
             padding: 30px;
@@ -196,11 +205,12 @@
             position: relative;
         }
         
-        .screenshot-caption {
+        .image-caption {
             font-style: italic;
             color: #666;
-            margin-top: 15px;
+            margin-top: 10px;
             font-size: 0.9em;
+            text-align: center;
         }
         
         .software-list {
@@ -270,6 +280,19 @@
             background: var(--primary-color);
             color: white;
         }
+        
+        .boot-section {
+            background-color: #111;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .boot-section h3 {
+            color: #fff;
+            margin-top: 0;
+        }
     </style>
 </head>
 <body>
@@ -279,9 +302,15 @@
             <p>Debian tabanlı yüksek optimizasyonlu eğitim odaklı işletim sistemi</p>
         </header>
         
+        <div class="boot-section animate__animated animate__fadeIn">
+            <h3>Vertus Boot Ekranı</h3>
+            <img src="vertusboot.png" alt="Vertus Boot Ekranı" class="boot-image">
+            <div class="image-caption">Sanal makineden alınmış gerçek boot görüntüsü - Vertus özel boot ekranı</div>
+        </div>
+        
         <div class="screenshot-container animate__animated animate__fadeIn">
             <img src="Vertus1.png" alt="Vertus İşletim Sistemi Ekran Görüntüsü" class="screenshot floating">
-            <div class="screenshot-caption">Vertus İşletim Sistemi - Özelleştirilmiş KDE Masaüstü Ortamı</div>
+            <div class="image-caption">Vertus İşletim Sistemi - Özelleştirilmiş KDE Masaüstü Ortamı</div>
         </div>
         
         <div class="project-info animate__animated animate__fadeInUp">
@@ -327,18 +356,21 @@
             
             <h2 class="animate__animated animate__fadeInLeft">Varsayılan Yazılımlar</h2>
             <div class="software-list">
-                <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.1s">Element Explorer (Tarayıcı)</div>
+                <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.1s">Element Explorer (Özel Dosya Yöneticisi)</div>
                 <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.2s">Vertus Okul Kütüphane Yönetim Sistemi</div>
                 <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.3s">Vertus Akıllı Tahta Kilit Sistemi</div>
-                <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.4s">N/A (Kaldırıldı.)</div>
+                <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.4s">Firefox ESR (Güvenli Tarayıcı)</div>
                 <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.5s">LibreOffice (Ofis Paketi)</div>
                 <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.6s">Okular (PDF ve Belge Görüntüleyici)</div>
+                <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.7s">Vertus Öğrenci Takip Sistemi</div>
+                <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.8s">Vertus Sınav Yönetim Modülü</div>
             </div>
             
             <h2 class="animate__animated animate__fadeInLeft">Teknik Detaylar</h2>
             <ul class="animate__animated animate__fadeIn">
                 <li><strong>Taban:</strong> Debian GNU/Linux (stable)</li>
                 <li><strong>Masaüstü Ortamı:</strong> Özelleştirilmiş KDE Plasma</li>
+                <li><strong>Boot Süresi:</strong> Ortalama 15-20 saniye (SSD'de)</li>
                 <li><strong>Minimum Sistem Gereksinimleri:</strong> 1GB RAM, 1.2GHz işlemci, 10GB disk alanı</li>
                 <li><strong>Önerilen Sistem Gereksinimleri:</strong> 2GB RAM, 1.8GHz çift çekirdek işlemci, 20GB disk alanı</li>
                 <li><strong>Özel Yazılımlar:</strong> Eğitime yönelik özel geliştirilmiş uygulamalar</li>
@@ -348,6 +380,7 @@
             <div class="highlight animate__animated animate__pulse animate__delay-2s">
                 <h3>Eğitim Kurumları İçin Özel Özellikler</h3>
                 <p>Vertus, okulların ihtiyaçları göz önünde bulundurularak geliştirilmiştir. Akıllı tahta yönetimi, öğrenci bilgisayarlarının merkezi kontrolü, internet filtreleme ve kütüphane otomasyonu gibi özelliklerle eğitim kurumlarının işlerini kolaylaştırmayı hedeflemektedir.</p>
+                <p>Özel boot ekranı ile profesyonel bir görünüm sunarken, sistem başlatma süreleri de optimize edilmiştir.</p>
             </div>
             
             <h2 class="animate__animated animate__fadeInLeft">Geliştirici</h2>
@@ -356,6 +389,7 @@
             <div class="animate__animated animate__fadeInUp animate__delay-1s" style="text-align: center; margin-top: 30px;">
                 <a href="#" class="btn">Demo İncele</a>
                 <a href="#" class="btn btn-outline">Dokümantasyon</a>
+                <a href="#" class="btn">İndirme Sayfası</a>
             </div>
         </div>
         
@@ -418,5 +452,4 @@
         });
     </script>
 </body>
-
 </html>
