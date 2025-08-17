@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertus - Proje İnceleme</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--secondary-color), #1a252f);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.8em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .logo {
+            font-weight: bold;
+            color: var(--primary-color);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { text-shadow: 0 0 5px rgba(52, 152, 219, 0.7); }
+            50% { text-shadow: 0 0 20px rgba(52, 152, 219, 0.9); }
+            100% { text-shadow: 0 0 5px rgba(52, 152, 219, 0.7); }
+        }
+        
+        .screenshot {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .screenshot:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        }
+        
+        .project-info {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .project-info:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .highlight {
+            background-color: #f8f9fa;
+            padding: 25px;
+            border-left: 5px solid var(--primary-color);
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .highlight:hover {
+            background-color: #f1f8fe;
+            transform: translateX(5px);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-top: 3px solid transparent;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-top: 3px solid var(--primary-color);
+        }
+        
+        .feature-card h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-card h3::before {
+            content: '✓';
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--secondary-color), #1a252f);
+            color: white;
+            border-radius: 0 0 10px 10px;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 5px 15px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-left: 15px;
+            font-weight: bold;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .screenshot-container {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .screenshot-caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        
+        .software-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .software-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .software-item:hover {
+            background-color: #e8f4fd;
+            transform: translateX(5px);
+        }
+        
+        .software-item::before {
+            content: '»';
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--primary-color), #2980b9);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #2980b9, var(--primary-color));
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="animate__animated animate__fadeInDown">
+            <h1><span class="logo">VERTUS</span> Proje İncelemesi</h1>
+            <p>Debian tabanlı yüksek optimizasyonlu eğitim odaklı işletim sistemi</p>
+        </header>
+        
+        <div class="screenshot-container animate__animated animate__fadeIn">
+            <img src="Vertus.png" alt="Vertus İşletim Sistemi Ekran Görüntüsü" class="screenshot floating">
+            <div class="screenshot-caption">Vertus İşletim Sistemi - Özelleştirilmiş KDE Masaüstü Ortamı</div>
+        </div>
+        
+        <div class="project-info animate__animated animate__fadeInUp">
+            <h2>Proje Hakkında <span class="status">Geliştirme Duraklatıldı</span></h2>
+            <p>Vertus, Debian tabanlı eğitim kurumlarına özel geliştirilmiş bir işletim sistemidir. Özenle seçilmiş eğitim yazılımları ve güvenlik önlemleriyle donatılmış olan sistem, okullarda ve bilgisayar laboratuvarlarında kullanım için optimize edilmiştir.</p>
+            
+            <div class="highlight animate__animated animate__pulse animate__delay-1s">
+                <p><strong>Proje Durumu:</strong> 2024'te geliştirilmeye başlanmış ve 03.01.2025 tarihinde geliştirilme sürecine ara verilmiştir. 20'den fazla farklı donanım konfigürasyonunda test edilmiş ve eğitim kurumlarında kullanıma uygun olduğu doğrulanmıştır.</p>
+            </div>
+            
+            <h2 class="animate__animated animate__fadeInLeft">Temel Özellikler</h2>
+            <div class="features">
+                <div class="feature-card animate__animated animate__fadeIn" style="animation-delay: 0.1s">
+                    <h3>Eğitim Odaklı</h3>
+                    <p>Özel olarak geliştirilmiş eğitim yazılımları ve okul yönetim sistemleri ile donatılmıştır.</p>
+                </div>
+                
+                <div class="feature-card animate__animated animate__fadeIn" style="animation-delay: 0.2s">
+                    <h3>Yüksek Performans</h3>
+                    <p>Özelleştirilmiş KDE masaüstü ortamı ile düşük kaynak tüketimi ve yüksek performans sunar.</p>
+                </div>
+                
+                <div class="feature-card animate__animated animate__fadeIn" style="animation-delay: 0.3s">
+                    <h3>Güvenlik</h3>
+                    <p>Okul ortamlarına özel geliştirilmiş güvenlik önlemleri ve kısıtlamalar içerir.</p>
+                </div>
+                
+                <div class="feature-card animate__animated animate__fadeIn" style="animation-delay: 0.4s">
+                    <h3>Akıllı Tahta Desteği</h3>
+                    <p>Vertus Akıllı Tahta Kilit Sistemi ile etkileşimli tahta kullanımını kolaylaştırır.</p>
+                </div>
+                
+                <div class="feature-card animate__animated animate__fadeIn" style="animation-delay: 0.5s">
+                    <h3>Kütüphane Entegrasyonu</h3>
+                    <p>Vertus Okul Kütüphane Yönetim Sistemi ile kütüphane işlemlerini merkezileştirir.</p>
+                </div>
+                
+                <div class="feature-card animate__animated animate__fadeIn" style="animation-delay: 0.6s">
+                    <h3>Kolay Yönetim</h3>
+                    <p>Element Explorer ile dosya yönetimi ve sistem ayarları kolay erişilebilir.</p>
+                </div>
+            </div>
+            
+            <h2 class="animate__animated animate__fadeInLeft">Varsayılan Yazılımlar</h2>
+            <div class="software-list">
+                <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.1s">Element Explorer (Tarayıcı)</div>
+                <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.2s">Vertus Okul Kütüphane Yönetim Sistemi</div>
+                <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.3s">Vertus Akıllı Tahta Kilit Sistemi</div>
+                <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.4s">N/A (Kaldırıldı.)</div>
+                <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.5s">LibreOffice (Ofis Paketi)</div>
+                <div class="software-item animate__animated animate__fadeIn" style="animation-delay: 0.6s">Okular (PDF ve Belge Görüntüleyici)</div>
+            </div>
+            
+            <h2 class="animate__animated animate__fadeInLeft">Teknik Detaylar</h2>
+            <ul class="animate__animated animate__fadeIn">
+                <li><strong>Taban:</strong> Debian GNU/Linux (stable)</li>
+                <li><strong>Masaüstü Ortamı:</strong> Özelleştirilmiş KDE Plasma</li>
+                <li><strong>Minimum Sistem Gereksinimleri:</strong> 1GB RAM, 1.2GHz işlemci, 10GB disk alanı</li>
+                <li><strong>Önerilen Sistem Gereksinimleri:</strong> 2GB RAM, 1.8GHz çift çekirdek işlemci, 20GB disk alanı</li>
+                <li><strong>Özel Yazılımlar:</strong> Eğitime yönelik özel geliştirilmiş uygulamalar</li>
+                <li><strong>Arayüz:</strong> Basitleştirilmiş ve eğitim odaklı KDE teması</li>
+            </ul>
+            
+            <div class="highlight animate__animated animate__pulse animate__delay-2s">
+                <h3>Eğitim Kurumları İçin Özel Özellikler</h3>
+                <p>Vertus, okulların ihtiyaçları göz önünde bulundurularak geliştirilmiştir. Akıllı tahta yönetimi, öğrenci bilgisayarlarının merkezi kontrolü, internet filtreleme ve kütüphane otomasyonu gibi özelliklerle eğitim kurumlarının işlerini kolaylaştırmayı hedeflemektedir.</p>
+            </div>
+            
+            <h2 class="animate__animated animate__fadeInLeft">Geliştirici</h2>
+            <p class="animate__animated animate__fadeIn">Proje, Yiğit E**** tarafından eğitim kurumlarının ihtiyaçlarına yönelik olarak geliştirilmektedir. Vertus, açık kaynak felsefesini benimseyen ve eğitimde teknoloji kullanımını kolaylaştırmayı amaçlayan bir projedir.</p>
+            
+            <div class="animate__animated animate__fadeInUp animate__delay-1s" style="text-align: center; margin-top: 30px;">
+                <a href="#" class="btn">Demo İncele</a>
+                <a href="#" class="btn btn-outline">Dokümantasyon</a>
+            </div>
+        </div>
+        
+        <footer class="animate__animated animate__fadeInUp animate__delay-1s">
+            <p>&copy; 2024-2025 Vertus Projesi | Tüm hakları saklıdır.</p>
+            <p>Son güncelleme: 03.01.2025 | Geliştirici: Yiğit E****</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Scroll animasyonları için
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate__animated');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const animation = entry.target.getAttribute('data-animation');
+                        entry.target.style.visibility = 'visible';
+                        entry.target.classList.add(animation);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animatedElements.forEach(element => {
+                element.style.visibility = 'hidden';
+                const animation = element.classList.contains('animate__fadeIn') ? 'animate__fadeIn' : 
+                                  element.classList.contains('animate__fadeInUp') ? 'animate__fadeInUp' :
+                                  element.classList.contains('animate__fadeInLeft') ? 'animate__fadeInLeft' :
+                                  element.classList.contains('animate__fadeInRight') ? 'animate__fadeInRight' :
+                                  'animate__fadeIn';
+                element.setAttribute('data-animation', animation);
+                observer.observe(element);
+            });
+            
+            // Buton ripple efekti
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const x = e.clientX - e.target.getBoundingClientRect().left;
+                    const y = e.clientY - e.target.getBoundingClientRect().top;
+                    
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('ripple');
+                    ripple.style.left = `${x}px`;
+                    ripple.style.top = `${y}px`;
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 1000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
